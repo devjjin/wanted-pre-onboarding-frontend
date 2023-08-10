@@ -6,13 +6,15 @@ export default function TodoList() {
   const [todos, setTodos] = useState([]);
 
   const onAddTodo = (todo) => setTodos([...todos, todo]);
+  const onDeleteTodo = (deleted) =>
+    setTodos(todos.filter((t) => t.id !== deleted.id));
 
   return (
     <section>
       <AddTodo onAdd={onAddTodo} />
       <ul>
         {todos.map((item) => (
-          <TodoItem key={item.id} todo={item} />
+          <TodoItem key={item.id} todo={item} onDelete={onDeleteTodo} />
         ))}
       </ul>
     </section>
