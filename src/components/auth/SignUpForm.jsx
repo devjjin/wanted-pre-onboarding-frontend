@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import postSignUpAPI from '../../apis/auth';
 
 export default function SignForm() {
+  const navigate = useNavigate();
   const initialValue = { email: '', password: '' };
   const [auth, setAuth] = useState(initialValue);
   const { email, password } = auth;
@@ -19,6 +22,13 @@ export default function SignForm() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    postSignUpAPI(email, password)
+      .then(() => {
+        navigate('/signin');
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
   };
 
   return (
