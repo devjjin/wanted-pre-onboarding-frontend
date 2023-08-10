@@ -6,20 +6,18 @@ export default function AddTodo({ onAdd }) {
 
   const onChangeHandler = (e) => setTodo(e.target.value);
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (todo.trim().length === 0) {
       return;
     }
-
-    createTodoAPI(todo)
-      .then(() => {
-        onAdd(todo);
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
-    setTodo('');
+    try {
+      await createTodoAPI(todo);
+      onAdd(todo);
+      setTodo('');
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (

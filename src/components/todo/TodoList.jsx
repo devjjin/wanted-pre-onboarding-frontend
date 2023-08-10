@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
-import { deleteTodoAPI, getTodoAPI } from '../../apis/todos';
+import {
+  createTodoAPI,
+  deleteTodoAPI,
+  getTodoAPI,
+  updateTodoAPI,
+} from '../../apis/todos';
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
 
-  const onAddTodo = (todo) => setTodos([...todos, todo]);
-  const onUpdateTodo = (updated) =>
-    setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
-  // const onDeleteTodo = (deleted) =>
-  //   setTodos(todos.filter((t) => t.id !== deleted.id));
-
-  const getTodo = async () => {
+  const onAddTodo = async (todo) => {
     try {
-      const res = await getTodoAPI();
-      setTodos(res.data);
+      const response = await createTodoAPI(todo);
+      const newTodo = response.data;
+      setTodos((prevTodos) => [...prevTodos, newTodo]);
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -24,14 +24,33 @@ export default function TodoList() {
   const onDeleteTodo = async (id) => {
     try {
       await deleteTodoAPI(id);
+      setTodos(todos.filter((t) => t.id !== id));
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  const onUpdateTodo = async (id, updatedTodo, updatedCheck) => {
+    try {
+      const res = await updateTodoAPI(id, updatedTodo, updatedCheck);
+      const newTodos = todos.map((todo) => (todo.id === id ? res.data : todo));
+      setTodos(newTodos);
     } catch (error) {
       alert(error.response.data.message);
     }
   };
 
   useEffect(() => {
-    getTodo();
-  }, [todos]);
+    const fetchData = async () => {
+      try {
+        const res = await getTodoAPI();
+        setTodos(res.data);
+      } catch (error) {
+        alert(error.response.data.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <section>

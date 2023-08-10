@@ -17,7 +17,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
 
   const handleUpdateTodo = () => {
     if (editedText.trim() !== '') {
-      onUpdate({ ...todo, todo: editedText });
+      onUpdate(todo.id, editedText, todo.isCompleted);
       setIsEdit(false);
     }
   };
@@ -32,7 +32,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
   };
 
   const handleCheckboxChange = () => {
-    onUpdate({ ...todo, isCompleted: !todo.isCompleted });
+    onUpdate(todo.id, todo.todo, !todo.isCompleted);
   };
 
   return (
@@ -49,7 +49,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
           <input
             type="checkbox"
             checked={todo.isCompleted}
-            onChange={() => handleCheckboxChange}
+            onChange={handleCheckboxChange}
           />
           <span>{todo.todo}</span>
         </label>
