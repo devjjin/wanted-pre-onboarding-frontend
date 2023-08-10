@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createTodoAPI } from '../../apis/todos';
 
 export default function AddTodo({ onAdd }) {
   const [todo, setTodo] = useState('');
@@ -10,12 +11,14 @@ export default function AddTodo({ onAdd }) {
     if (todo.trim().length === 0) {
       return;
     }
-    const newTodo = {
-      id: Date.now(),
-      text: todo,
-      isCompleted: false,
-    };
-    onAdd(newTodo);
+
+    createTodoAPI(todo)
+      .then(() => {
+        onAdd(todo);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
     setTodo('');
   };
 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
+import { deleteTodoAPI, getTodoAPI } from '../../apis/todos';
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -8,8 +9,29 @@ export default function TodoList() {
   const onAddTodo = (todo) => setTodos([...todos, todo]);
   const onUpdateTodo = (updated) =>
     setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
-  const onDeleteTodo = (deleted) =>
-    setTodos(todos.filter((t) => t.id !== deleted.id));
+  // const onDeleteTodo = (deleted) =>
+  //   setTodos(todos.filter((t) => t.id !== deleted.id));
+
+  const getTodo = async () => {
+    try {
+      const res = await getTodoAPI();
+      setTodos(res.data);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  const onDeleteTodo = async (id) => {
+    try {
+      await deleteTodoAPI(id);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    getTodo();
+  }, [todos]);
 
   return (
     <section>

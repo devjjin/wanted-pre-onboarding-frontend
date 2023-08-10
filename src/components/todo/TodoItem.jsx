@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 export default function TodoItem({ todo, onUpdate, onDelete }) {
   const [isEdit, setIsEdit] = useState(false);
-  const [editedText, setEditedText] = useState(todo.text);
+  const [editedText, setEditedText] = useState(todo.todo);
 
   const toggleEditMode = () => {
     if (!isEdit) {
-      setEditedText(todo.text);
+      setEditedText(todo.todo);
     }
     setIsEdit(!isEdit);
   };
@@ -17,18 +17,18 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
 
   const handleUpdateTodo = () => {
     if (editedText.trim() !== '') {
-      onUpdate({ ...todo, text: editedText });
+      onUpdate({ ...todo, todo: editedText });
       setIsEdit(false);
     }
   };
 
   const handleCancelEdit = () => {
-    setEditedText(todo.text);
+    setEditedText(todo.todo);
     setIsEdit(false);
   };
 
-  const handleDeleteTodo = () => {
-    onDelete(todo);
+  const handleDeleteTodo = (id) => {
+    onDelete(id);
   };
 
   const handleCheckboxChange = () => {
@@ -49,9 +49,9 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
           <input
             type="checkbox"
             checked={todo.isCompleted}
-            onChange={() => handleCheckboxChange(todo.id)}
+            onChange={() => handleCheckboxChange}
           />
-          <span>{todo.text}</span>
+          <span>{todo.todo}</span>
         </label>
       )}
       <div>
@@ -84,7 +84,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
             <button
               type="button"
               data-testid="delete-button"
-              onClick={handleDeleteTodo}
+              onClick={() => handleDeleteTodo(todo.id)}
             >
               삭제
             </button>
