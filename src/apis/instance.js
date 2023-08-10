@@ -9,8 +9,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('access_token');
-
+  const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     const requestConfig = { ...config };
     requestConfig.headers = {
