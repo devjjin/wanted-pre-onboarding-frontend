@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { createTodoAPI } from '../../apis/todos';
 
 export default function AddTodo({ onAdd }) {
   const [todo, setTodo] = useState('');
@@ -12,7 +11,6 @@ export default function AddTodo({ onAdd }) {
       return;
     }
     try {
-      await createTodoAPI(todo);
       onAdd(todo);
       setTodo('');
     } catch (error) {
