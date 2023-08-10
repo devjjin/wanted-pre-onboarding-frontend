@@ -1,5 +1,11 @@
-function App() {
-  return <div>app</div>;
-}
+import { Outlet } from 'react-router';
 
-export default App;
+import React from 'react';
+
+export default function App() {
+  return (
+    <frameElement>
+      <Outlet />
+    </frameElement>
+  );
+}
