@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import postSignUpAPI from '../../apis/auth';
+import { postSignUpAPI } from '../../apis/auth';
 
 export default function SignForm() {
   const navigate = useNavigate();
