@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { postSigninAPI } from '../../apis/auth';
 
@@ -33,42 +34,94 @@ export default function SignInForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmitHandler}>
+    <Container>
+      <Form onSubmit={onSubmitHandler}>
         <label htmlFor="email">
           이메일
-          <input
+          <Input
             id="email"
             data-testid="email-input"
             type="email"
             value={email}
             placeholder="이메일 주소"
             onChange={onChangeHandler}
+            isValid={isEmailValid}
           />
+          {!isEmailValid && email !== '' && (
+            <Warning>올바른 이메일을 입력하세요.</Warning>
+          )}
         </label>
-        {!isEmailValid && email !== '' && <p>올바른 이메일을 입력하세요.</p>}
         <label htmlFor="password">
           비밀번호
-          <input
+          <Input
             id="password"
             data-testid="password-input"
             type="password"
             value={password}
             placeholder="비밀번호"
             onChange={onChangeHandler}
+            isValid={isPasswordValid}
           />
           {!isPasswordValid && password !== '' && (
-            <p>유효한 비밀번호를 입력하세요.</p>
+            <Warning>유효한 비밀번호를 입력하세요.</Warning>
           )}
         </label>
-        <button
+        <LoginButton
           type="submit"
           data-testid="login-button"
           disabled={!isFormValid}
         >
           로그인
-        </button>
-      </form>
-    </div>
+        </LoginButton>
+      </Form>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const Input = styled.input`
+  width: 280px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid ${(props) => (props.isValid ? '#ccc' : '#e74c3c')};
+  border-radius: 3px;
+`;
+
+const Warning = styled.p`
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 3px;
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+`;
