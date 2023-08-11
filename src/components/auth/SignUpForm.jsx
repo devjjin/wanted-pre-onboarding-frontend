@@ -35,6 +35,7 @@ export default function SignForm() {
   return (
     <Container>
       <Form onSubmit={onSubmitHandler}>
+        <h3>회원가입</h3>
         <label htmlFor="email">
           이메일
           <Input
