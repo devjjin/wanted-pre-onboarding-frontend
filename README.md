@@ -30,12 +30,12 @@ REACT_APP_API_URL=https://www.pre-onboarding-selection-task.shop
 
 3. 프로젝트 패키지 설치
 ```
-npm install
+yarn install
 ```
 
 4. 프로젝트 실행
 ```
-npm start
+yarn start
 ```
 ## 사용 라이브러리
 <p>
