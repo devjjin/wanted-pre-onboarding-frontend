@@ -18,17 +18,22 @@ test34@naver.com / 123123123
 
 ## 3.프로젝트 세팅 & 실행 방법
 
-1. root 경로에 .env 추가
+1. git clone
+```
+$ git clone https://github.com/devjjin/wanted-pre-onboarding-frontend.git
+```
+
+2. root 경로에 .env 추가
 ```
 REACT_APP_API_URL=https://www.pre-onboarding-selection-task.shop
 ```
 
-2. 프로젝트 패키지 설치
+3. 프로젝트 패키지 설치
 ```
 npm install
 ```
 
-3. 프로젝트 실행
+4. 프로젝트 실행
 ```
 npm start
 ```
