@@ -4,8 +4,8 @@ import React from 'react';
 
 export default function App() {
   return (
-    <frameElement>
+    <div>
       <Outlet />
-    </frameElement>
+    </div>
   );
 }
