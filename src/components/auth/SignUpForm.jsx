@@ -44,7 +44,7 @@ export default function SignForm() {
             value={email}
             placeholder="이메일 주소 (예: test@gmail.com)"
             onChange={onChangeHandler}
-            isValid={isEmailValid}
+            isvalid={isEmailValid ? 1 : 0}
           />
           {!isEmailValid && email !== '' && (
             <Warning>올바른 이메일을 입력하세요.</Warning>
@@ -59,7 +59,7 @@ export default function SignForm() {
             value={password}
             placeholder="비밀번호 (8자 이상)"
             onChange={onChangeHandler}
-            isValid={isPasswordValid}
+            isvalid={isPasswordValid ? 1 : 0}
           />
           {!isPasswordValid && password !== '' && (
             <Warning>유효한 비밀번호를 입력하세요.</Warning>
