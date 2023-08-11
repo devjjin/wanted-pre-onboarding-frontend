@@ -102,7 +102,7 @@ const Input = styled.input`
   width: 280px;
   padding: 10px;
   margin: 5px 0;
-  border: 1px solid ${(props) => (props.isValid ? '#ccc' : '#e74c3c')};
+  border: 1px solid ${(props) => (props.isvalid ? '#ccc' : '#e74c3c')};
   border-radius: 3px;
 `;
 
