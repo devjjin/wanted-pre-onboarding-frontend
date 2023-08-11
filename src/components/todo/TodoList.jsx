@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
 import {
@@ -53,9 +54,10 @@ export default function TodoList() {
   }, []);
 
   return (
-    <section>
+    <Wrapper>
+      <h2>Todo List</h2>
       <AddTodo onAdd={onAddTodo} />
-      <ul>
+      <TodoItemList>
         {todos.map((item) => (
           <TodoItem
             key={item.id}
@@ -64,7 +66,21 @@ export default function TodoList() {
             onDelete={onDeleteTodo}
           />
         ))}
-      </ul>
-    </section>
+      </TodoItemList>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.section`
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const TodoItemList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+`;
