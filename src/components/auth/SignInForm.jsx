@@ -68,7 +68,7 @@ export default function SignInForm() {
         </label>
         <LoginButton
           type="submit"
-          data-testid="login-button"
+          data-testid="signin-button"
           disabled={!isFormValid}
         >
           로그인
