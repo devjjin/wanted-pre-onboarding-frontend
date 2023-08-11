@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
@@ -11,6 +12,7 @@ import {
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
+  const navigate = useNavigate();
 
   const onAddTodo = async (todo) => {
     try {
@@ -43,9 +45,14 @@ export default function TodoList() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('accessToken');
       try {
-        const res = await getTodoAPI();
-        setTodos(res.data);
+        if (token) {
+          const res = await getTodoAPI();
+          setTodos(res.data);
+        } else {
+          navigate('/signin');
+        }
       } catch (error) {
         alert(error.response.data.message);
       }

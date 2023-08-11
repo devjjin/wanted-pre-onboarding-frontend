@@ -4,21 +4,9 @@ import styled from 'styled-components';
 
 export default function Main() {
   const navigate = useNavigate();
-  const token = localStorage.getItem('accessToken');
 
   const goPath = (path) => {
-    const goToTodo = () => {
-      navigate('/todo');
-    };
-    if (token) {
-      goToTodo();
-    } else {
-      navigate(path);
-    }
-  };
-
-  const goTodo = () => {
-    goPath('/signin');
+    navigate(path);
   };
 
   return (
@@ -31,7 +19,7 @@ export default function Main() {
         <SignInBtn type="button" onClick={() => goPath('/signin')}>
           로그인
         </SignInBtn>
-        <Button type="button" onClick={goTodo}>
+        <Button type="button" onClick={() => goPath('/todo')}>
           todo로
         </Button>
       </ButtonWrap>
