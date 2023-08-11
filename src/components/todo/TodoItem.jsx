@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 export default function TodoItem({ todo, onUpdate, onDelete }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -36,61 +37,99 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
   };
 
   return (
-    <li>
-      {isEdit ? (
-        <input
-          type="text"
-          value={editedText}
-          onChange={handleInputChange}
-          data-testid="modify-input"
-        />
-      ) : (
-        <label htmlFor={todo.id}>
-          <input
-            type="checkbox"
-            checked={todo.isCompleted}
-            onChange={handleCheckboxChange}
+    <StyledLi>
+      <TodoContent>
+        {isEdit ? (
+          <Input
+            type="text"
+            value={editedText}
+            onChange={handleInputChange}
+            data-testid="modify-input"
           />
-          <span>{todo.todo}</span>
-        </label>
-      )}
-      <div>
+        ) : (
+          <label htmlFor={todo.id}>
+            <input
+              type="checkbox"
+              checked={todo.isCompleted}
+              onChange={handleCheckboxChange}
+            />
+            <span>{todo.todo}</span>
+          </label>
+        )}
+      </TodoContent>
+      <ButtonGroup>
         {isEdit ? (
           <div>
-            <button
+            <Button
               type="button"
               data-testid="submit-button"
               onClick={handleUpdateTodo}
             >
               제출
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
               data-testid="cancel-button"
               onClick={handleCancelEdit}
             >
               취소
-            </button>
+            </Button>
           </div>
         ) : (
           <div>
-            <button
+            <Button
               type="button"
               data-testid="modify-button"
               onClick={toggleEditMode}
             >
               수정
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
               data-testid="delete-button"
               onClick={() => handleDeleteTodo(todo.id)}
             >
               삭제
-            </button>
+            </Button>
           </div>
         )}
-      </div>
-    </li>
+      </ButtonGroup>
+    </StyledLi>
   );
 }
+
+const StyledLi = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  width: 400px;
+`;
+
+const TodoContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
+const Button = styled.button`
+  padding: 5px 10px;
+  margin: 3px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
