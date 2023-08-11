@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { GiCancel } from 'react-icons/gi';
 
 export default function TodoItem({ todo, onUpdate, onDelete }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -65,14 +67,14 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
               data-testid="submit-button"
               onClick={handleUpdateTodo}
             >
-              제출
+              <FaPencilAlt />
             </Button>
             <Button
               type="button"
               data-testid="cancel-button"
               onClick={handleCancelEdit}
             >
-              취소
+              <GiCancel />
             </Button>
           </div>
         ) : (
@@ -82,14 +84,14 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
               data-testid="modify-button"
               onClick={toggleEditMode}
             >
-              수정
+              <FaPencilAlt />
             </Button>
             <Button
               type="button"
               data-testid="delete-button"
               onClick={() => handleDeleteTodo(todo.id)}
             >
-              삭제
+              <FaTrash />
             </Button>
           </div>
         )}
@@ -132,4 +134,8 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #ccc;
+  }
 `;
