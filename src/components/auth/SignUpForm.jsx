@@ -25,6 +25,7 @@ export default function SignForm() {
     e.preventDefault();
     postSignUpAPI(email, password)
       .then(() => {
+        alert('회원가입이 완료되었습니다.');
         navigate('/signin');
       })
       .catch((error) => {

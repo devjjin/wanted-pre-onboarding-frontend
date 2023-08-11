@@ -26,6 +26,7 @@ export default function SignInForm() {
     postSigninAPI(email, password)
       .then((res) => {
         localStorage.setItem('accessToken', res.data.access_token);
+        alert('로그인에 성공하셨습니다.');
         navigate('/todo');
       })
       .catch((error) => {
